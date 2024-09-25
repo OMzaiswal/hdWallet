@@ -9,6 +9,7 @@ import axios from "axios";
 export function SolanaWallet({ mnemonic }) {
     const [ currentIndex, setCurrentIndex ] = useState(0);
     const [ publicKeys, setPublicKeys ] = useState([]);
+    const [ balance, setBalance ] = useState('__');
 
     return <div>
         <button onClick={ async () => {
@@ -27,8 +28,21 @@ export function SolanaWallet({ mnemonic }) {
                 <div style={{ display: "flex"}}>
                     <div>{p.toBase58()}</div>
                     <button onClick={ async () => {
-                        
+                        const response = await axios.post('https://solana-mainnet.g.alchemy.com/v2/4e2GZzAHXiBTaK01OQzlJZnfxJnt-wFV',{
+                            "jsonrpc":"2.0",
+                            "id":1,
+                            "method":"getBalance",
+                            "params":["HG7mYp33mY1pQbrnbiGSPCwVYdoJFYrACr2ZwRRLmWrv"]
+                        }, {
+                            headers: {
+                                "Content-Type": "text/plain"
+                            }
+                        })
+                        setBalance(JSON.stringify(response.data.result.value))
+                        console.log(balance);
                     }}>Check Balance</button> 
+                    <input value={`${balance} SOL`}></input>
+                    
                 </div>
             )}
         </div>

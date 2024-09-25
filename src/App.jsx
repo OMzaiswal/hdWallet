@@ -16,7 +16,7 @@ function App() {
       Create Seed Phrase
     </button>
     <p>{mnemonic}</p>
-    <div style={{ display: "flex", justifyContent: 'space-between'}}>
+    <div style={{}}>
     <SolanaWallet mnemonic={mnemonic} />
     <EthWallet mnemonic={mnemonic}/>
     </div>
