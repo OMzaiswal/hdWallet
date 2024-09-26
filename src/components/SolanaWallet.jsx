@@ -11,6 +11,10 @@ export function SolanaWallet({ mnemonic }) {
     const [ publicKeys, setPublicKeys ] = useState([]);
     const [ balance, setBalance ] = useState('__');
 
+    const displayBal = (bal) => {
+        <p>{bal} SOL</p>
+    }
+
     return <div>
         <button onClick={ async () => {
             const seed = await mnemonicToSeed(mnemonic);

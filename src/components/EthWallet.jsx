@@ -1,11 +1,13 @@
 import { mnemonicToSeed } from "bip39";
 import { useState } from "react";
 import { Wallet, HDNodeWallet } from "ethers";
+import axios from "axios";
 
 
 export function EthWallet({ mnemonic }) {
     const [ currentIndex, setCurrentIndex ] = useState(0);
     const [ publicKeys, setPublicKeys ] = useState([]);
+    const [ bal, setBal ] = useState('');
 
     return (
     <div>
@@ -25,7 +27,22 @@ export function EthWallet({ mnemonic }) {
             { publicKeys.map(p => 
                 <div style={{ display: "flex" }}> 
                     <div>Eth - {p}</div>
-                    <button>Check Balance</button> 
+                    <button onClick={ async () => {
+                        const response = axios.post('https://eth-mainnet.g.alchemy.com/v2/4e2GZzAHXiBTaK01OQzlJZnfxJnt-wFV', {
+                            "jsonrpc":"2.0",
+                            "id":1,
+                            "method":"eth_getBalance",
+                            "params":["0x6a7349e2F6ed13637aA55455AF4295161FC3Fda2","latest"]
+                        }, {
+                            headers: {
+                                "Content-Type": "text/plain"
+                            }
+                        })
+                        console.log(JSON.stringify(response));
+                        // setBal(JSON.stringify(response.data.result.value))
+                        // console.log(bal);
+                    }}>Check Balance</button> 
+                    {/* <input value={bal}></input> */}
                 </div>
             )}
         </div>
