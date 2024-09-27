@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Wallet, HDNodeWallet } from "ethers";
 import axios from "axios";
 
-
 export function EthWallet({ mnemonic }) {
     const [ currentIndex, setCurrentIndex ] = useState(0);
     const [ publicKeys, setPublicKeys ] = useState([]);
@@ -28,7 +27,7 @@ export function EthWallet({ mnemonic }) {
                 <div style={{ display: "flex" }}> 
                     <div>Eth - {p}</div>
                     <button onClick={ async () => {
-                        const response = axios.post('https://eth-mainnet.g.alchemy.com/v2/4e2GZzAHXiBTaK01OQzlJZnfxJnt-wFV', {
+                        const response = await axios.post('https://eth-mainnet.g.alchemy.com/v2/4e2GZzAHXiBTaK01OQzlJZnfxJnt-wFV', {
                             "jsonrpc":"2.0",
                             "id":1,
                             "method":"eth_getBalance",
@@ -38,11 +37,11 @@ export function EthWallet({ mnemonic }) {
                                 "Content-Type": "text/plain"
                             }
                         })
-                        console.log(JSON.stringify(response));
-                        // setBal(JSON.stringify(response.data.result.value))
-                        // console.log(bal);
+                        // console.log(JSON.stringify(response.data.result));
+                        setBal(JSON.stringify(response.data.result))
+                        console.log(bal);
                     }}>Check Balance</button> 
-                    {/* <input value={bal}></input> */}
+                    <p>{bal} Ether</p>
                 </div>
             )}
         </div>

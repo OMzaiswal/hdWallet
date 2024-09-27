@@ -5,11 +5,10 @@ import { Keypair } from "@solana/web3.js"
 import nacl from "tweetnacl";
 import axios from "axios";
 
-
 export function SolanaWallet({ mnemonic }) {
     const [ currentIndex, setCurrentIndex ] = useState(0);
     const [ publicKeys, setPublicKeys ] = useState([]);
-    const [ balance, setBalance ] = useState('__');
+    const [ balance, setBalance ] = useState('');
 
     const displayBal = (bal) => {
         <p>{bal} SOL</p>
@@ -45,8 +44,7 @@ export function SolanaWallet({ mnemonic }) {
                         setBalance(JSON.stringify(response.data.result.value))
                         console.log(balance);
                     }}>Check Balance</button> 
-                    <input value={`${balance} SOL`}></input>
-                    
+                    <p>{balance} SOL</p>
                 </div>
             )}
         </div>
